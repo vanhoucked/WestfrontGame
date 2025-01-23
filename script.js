@@ -8,6 +8,7 @@ const images = getRandomImages(10);
 const timelineArray = [];
 
 const dragBox = document.getElementById('dragBox');
+const grootScherm = document.getElementById('grootScherm');
 const timeline = document.getElementById('timeline');
 
 // Functie om 10 random afbeeldingen te selecteren
@@ -20,12 +21,18 @@ function getRandomImages(count) {
 let currentImageIndex = 0;
 function loadImage() {
     if (currentImageIndex < images.length) {
+        // Voeg de afbeelding in groot formaat toe aan het grote scherm
+        grootScherm.innerHTML = `<img src='/img/${images[currentImageIndex]}' style='width: 500px; height: auto;'>`;
+
+        // Voeg de afbeelding toe aan de dragBox
         dragBox.innerHTML = `<img src='/img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
         const img = document.getElementById('currentImage');
 
         img.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
         });
+    } else {
+        dragBox.innerHTML = "<p>Alle afbeeldingen staan op de tijdlijn!</p>";
     }
 }
 loadImage();
@@ -33,6 +40,19 @@ loadImage();
 // Handle drop logic
 timeline.addEventListener('dragover', (e) => {
     e.preventDefault();
+    const hoveredElement = e.target;
+    if (hoveredElement.tagName === 'IMG') {
+        hoveredElement.style.marginRight = "30px";
+        hoveredElement.style.marginLeft = "30px";
+    }
+});
+
+timeline.addEventListener('dragleave', (e) => {
+    const hoveredElement = e.target;
+    if (hoveredElement.tagName === 'IMG') {
+        hoveredElement.style.marginRight = "10px";
+        hoveredElement.style.marginLeft = "10px";
+    }
 });
 
 timeline.addEventListener('drop', (e) => {
@@ -63,6 +83,7 @@ timeline.addEventListener('drop', (e) => {
         // Update timeline
         const imgElement = document.createElement('img');
         imgElement.src = `/img/${newImage}`;
+        imgElement.style.margin = "10px";
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
 
