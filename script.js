@@ -11,13 +11,15 @@ const timelineArray = [];
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
 const timeline = document.getElementById('timeline');
+
+// Feedbackbollen in de onderste section
 const feedbackContainer = document.createElement('div');
 feedbackContainer.style.position = "absolute";
 feedbackContainer.style.bottom = "10px";
 feedbackContainer.style.right = "10px";
 feedbackContainer.style.display = "flex";
 feedbackContainer.style.gap = "5px";
-document.body.appendChild(feedbackContainer);
+document.getElementById('touchscreenScherm').appendChild(feedbackContainer);
 
 // Maak de feedbackbollen
 const feedbackDots = [];
@@ -43,7 +45,7 @@ let hasTried = false;
 function loadImage() {
     if (currentImageIndex < images.length) {
         // Voeg de afbeelding in groot formaat toe aan het grote scherm
-        grootScherm.innerHTML = `<img src='/img/${images[currentImageIndex]}' style='width: 500px; height: auto;'>`;
+        grootScherm.innerHTML = `<img src='/img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
 
         // Voeg de afbeelding toe aan de dragBox
         dragBox.innerHTML = `<img src='/img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
@@ -51,6 +53,10 @@ function loadImage() {
 
         img.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
+            const dragImg = new Image();
+            dragImg.src = `/img/${images[currentImageIndex]}`;
+            dragImg.style.opacity = "0.5";
+            e.dataTransfer.setDragImage(dragImg, 50, 50);
         });
     } else {
         dragBox.innerHTML = "<p>Alle afbeeldingen staan op de tijdlijn!</p>";
@@ -61,19 +67,6 @@ loadImage();
 // Handle drop logic
 timeline.addEventListener('dragover', (e) => {
     e.preventDefault();
-    const hoveredElement = e.target;
-    if (hoveredElement.tagName === 'IMG') {
-        hoveredElement.style.marginRight = "30px";
-        hoveredElement.style.marginLeft = "30px";
-    }
-});
-
-timeline.addEventListener('dragleave', (e) => {
-    const hoveredElement = e.target;
-    if (hoveredElement.tagName === 'IMG') {
-        hoveredElement.style.marginRight = "10px";
-        hoveredElement.style.marginLeft = "10px";
-    }
 });
 
 timeline.addEventListener('drop', (e) => {
@@ -104,7 +97,7 @@ timeline.addEventListener('drop', (e) => {
         // Update timeline
         const imgElement = document.createElement('img');
         imgElement.src = `/img/${newImage}`;
-        imgElement.style.margin = "10px";
+        imgElement.style.margin = "30px";
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
 
