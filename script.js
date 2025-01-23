@@ -45,10 +45,10 @@ let hasTried = false;
 function loadImage() {
     if (currentImageIndex < images.length) {
         // Voeg de afbeelding in groot formaat toe aan het grote scherm
-        grootScherm.innerHTML = `<img src='/img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
+        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
 
         // Voeg de afbeelding toe aan de dragBox
-        dragBox.innerHTML = `<img src='/img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
+        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
         const img = document.getElementById('currentImage');
 
         img.addEventListener('dragstart', (e) => {
@@ -92,7 +92,7 @@ timeline.addEventListener('drop', (e) => {
     if (isValid) {
         // Update timeline
         const imgElement = document.createElement('img');
-        imgElement.src = `/img/${newImage}`;
+        imgElement.src = `img/${newImage}`;
         imgElement.style.margin = "30px";
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
