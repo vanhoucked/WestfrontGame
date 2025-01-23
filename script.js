@@ -53,10 +53,6 @@ function loadImage() {
 
         img.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
-            const dragImg = new Image();
-            dragImg.src = `/img/${images[currentImageIndex]}`;
-            dragImg.style.opacity = "0.5";
-            e.dataTransfer.setDragImage(dragImg, 50, 50);
         });
     } else {
         dragBox.innerHTML = "<p>Alle afbeeldingen staan op de tijdlijn!</p>";
