@@ -4,12 +4,32 @@ const allImages = [
     "191408.jpg", "191409.jpg", "191609.jpg", "191612.jpg", "191704.jpg", "191705.jpg", "191706.jpg", "191811.jpg", "191907.jpg", "192002.jpg",
     "192011.jpg", "192012.jpg", "192812.jpg"
 ];
+
 const images = getRandomImages(10);
 const timelineArray = [];
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
 const timeline = document.getElementById('timeline');
+const feedbackContainer = document.createElement('div');
+feedbackContainer.style.position = "absolute";
+feedbackContainer.style.bottom = "10px";
+feedbackContainer.style.right = "10px";
+feedbackContainer.style.display = "flex";
+feedbackContainer.style.gap = "5px";
+document.body.appendChild(feedbackContainer);
+
+// Maak de feedbackbollen
+const feedbackDots = [];
+for (let i = 0; i < 9; i++) {
+    const dot = document.createElement('div');
+    dot.style.width = "20px";
+    dot.style.height = "20px";
+    dot.style.borderRadius = "50%";
+    dot.style.backgroundColor = "#ccc";
+    feedbackContainer.appendChild(dot);
+    feedbackDots.push(dot);
+}
 
 // Functie om 10 random afbeeldingen te selecteren
 function getRandomImages(count) {
@@ -19,6 +39,7 @@ function getRandomImages(count) {
 
 // Load initial image in dragBox
 let currentImageIndex = 0;
+let hasTried = false;
 function loadImage() {
     if (currentImageIndex < images.length) {
         // Voeg de afbeelding in groot formaat toe aan het grote scherm
@@ -87,11 +108,21 @@ timeline.addEventListener('drop', (e) => {
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
 
+        // Update feedback
+        if (currentImageIndex > 0 && !hasTried) {
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "green";
+        }
+
         // Load next image
         currentImageIndex++;
+        hasTried = false;
         loadImage();
     } else {
-        alert('Ongeldige plaatsing!');
+        if (currentImageIndex > 0 && !hasTried) {
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
+        }
+        hasTried = true;
+        alert('Ongeldige plaatsing! Probeer opnieuw.');
     }
 });
 
