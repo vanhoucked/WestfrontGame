@@ -5,8 +5,8 @@ const allImages = [
     "192011.jpg", "192012.jpg", "192812.jpg"
 ];
 
-const images = getRandomImages(10);
-const timelineArray = [];
+let images = [];
+let timelineArray = [];
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
@@ -39,6 +39,26 @@ function getRandomImages(count) {
     return shuffled.slice(0, count);
 }
 
+// Reset alle logica
+function resetGame() {
+    images = getRandomImages(10);
+    timelineArray = [];
+    currentImageIndex = 0;
+    attemptCount = 0;
+    hasTried = false;
+
+    // Verwijder bestaande feedbackbollen
+    feedbackDots.forEach(dot => {
+        dot.style.backgroundColor = "#ccc";
+    });
+
+    // Leeg de tijdlijn
+    timeline.innerHTML = "";
+
+    // Laad de eerste afbeelding
+    loadImage();
+}
+
 // Load initial image in dragBox
 let currentImageIndex = 0;
 let hasTried = false;
@@ -61,7 +81,6 @@ function loadImage() {
         dragBox.innerHTML = "<p>Alle afbeeldingen staan op de tijdlijn!</p>";
     }
 }
-loadImage();
 
 // Handle drop logic
 timeline.addEventListener('dragover', (e) => {
@@ -152,4 +171,12 @@ function parseDate(imageName) {
     const year = parseInt(imageName.slice(0, 4));
     const month = parseInt(imageName.slice(4, 6));
     return new Date(year, month - 1);
+}
+
+// Start het spel met reset
+function startGame(language) {
+    console.log(`Geselecteerde taal: ${language}`);
+    document.getElementById('startScherm').style.display = 'none';
+    document.getElementById('gameScherm').style.display = 'block';
+    resetGame();
 }

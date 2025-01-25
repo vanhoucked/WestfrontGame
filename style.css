@@ -7,7 +7,7 @@ body {
     height: 100%;
     font-family: Arial, sans-serif;
 }
-#grootScherm, #touchscreenScherm {
+.grootScherm, .touchScreen {
     width: 1920px;
     height: 1080px;
     display: flex;
@@ -15,10 +15,10 @@ body {
     align-items: center;
     position: relative;
 }
-#grootScherm {
+.grootScherm {
     background-color: #f0f0f0;
 }
-#touchscreenScherm {
+.touchScreen {
     background-color: #d0d0d0;
     flex-direction: column;
 }
