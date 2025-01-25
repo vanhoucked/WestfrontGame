@@ -42,13 +42,16 @@ function getRandomImages(count) {
 // Load initial image in dragBox
 let currentImageIndex = 0;
 let hasTried = false;
+const maxAttempts = 2;
+let attemptCount = 0;
+
 function loadImage() {
     if (currentImageIndex < images.length) {
         // Voeg de afbeelding in groot formaat toe aan het grote scherm
-        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
+        grootScherm.innerHTML = `<img src='/img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
 
         // Voeg de afbeelding toe aan de dragBox
-        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
+        dragBox.innerHTML = `<img src='/img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
         const img = document.getElementById('currentImage');
 
         img.addEventListener('dragstart', (e) => {
@@ -92,7 +95,7 @@ timeline.addEventListener('drop', (e) => {
     if (isValid) {
         // Update timeline
         const imgElement = document.createElement('img');
-        imgElement.src = `img/${newImage}`;
+        imgElement.src = `/img/${newImage}`;
         imgElement.style.margin = "30px";
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
@@ -102,18 +105,48 @@ timeline.addEventListener('drop', (e) => {
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "green";
         }
 
-        // Load next image
+        // Reset attempt count and load next image
         currentImageIndex++;
+        attemptCount = 0;
         hasTried = false;
         loadImage();
     } else {
+        attemptCount++;
         if (currentImageIndex > 0 && !hasTried) {
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
         }
         hasTried = true;
-        alert('Ongeldige plaatsing! Probeer opnieuw.');
+        if (attemptCount >= maxAttempts) {
+            // Automatically place the image correctly
+            const correctPosition = findCorrectPosition(newDate);
+            const imgElement = document.createElement('img');
+            imgElement.src = `/img/${newImage}`;
+            imgElement.style.margin = "30px";
+            timeline.insertBefore(imgElement, timeline.children[correctPosition] || null);
+            timelineArray.splice(correctPosition, 0, newImage);
+
+            alert('De afbeelding is automatisch op de juiste plaats gezet.');
+
+            // Reset attempt count and load next image
+            currentImageIndex++;
+            attemptCount = 0;
+            hasTried = false;
+            loadImage();
+        } else {
+            alert('Ongeldige plaatsing! Probeer opnieuw.');
+        }
     }
 });
+
+function findCorrectPosition(newDate) {
+    if (timelineArray.length === 0) return 0;
+    for (let i = 0; i < timelineArray.length; i++) {
+        if (newDate < parseDate(timelineArray[i])) {
+            return i;
+        }
+    }
+    return timelineArray.length;
+}
 
 function parseDate(imageName) {
     const year = parseInt(imageName.slice(0, 4));
