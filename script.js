@@ -15,10 +15,12 @@ const timeline = document.getElementById('timeline');
 
 let translations = {};
 let currentLanguage = "nl";
+
 async function loadTranslations() {
     const response = await fetch("translations.json");
     translations = await response.json();
 }
+
 function t(key, placeholders = {}) {
     let text = translations[currentLanguage][key] || key;
 
@@ -31,21 +33,14 @@ function t(key, placeholders = {}) {
 
 // Feedbackbollen in de onderste section
 const feedbackContainer = document.createElement('div');
-feedbackContainer.style.position = "absolute";
-feedbackContainer.style.bottom = "10px";
-feedbackContainer.style.right = "10px";
-feedbackContainer.style.display = "flex";
-feedbackContainer.style.gap = "5px";
+feedbackContainer.classList.add('feedback-container');
 document.getElementById('touchscreenScherm').appendChild(feedbackContainer);
 
 // Maak de feedbackbollen
 const feedbackDots = [];
 for (let i = 0; i < 9; i++) {
     const dot = document.createElement('div');
-    dot.style.width = "20px";
-    dot.style.height = "20px";
-    dot.style.borderRadius = "50%";
-    dot.style.backgroundColor = "#ccc";
+    dot.classList.add('feedback-dot');
     feedbackContainer.appendChild(dot);
     feedbackDots.push(dot);
 }
@@ -54,7 +49,6 @@ for (let i = 0; i < 9; i++) {
 function getRandomImages(count) {
     const shuffled = [...allImages].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
-    
 }
 
 // Load initial image in dragBox
@@ -65,13 +59,10 @@ let attemptCount = 0;
 
 function loadImage() {
     if (currentImageIndex < images.length) {
-        // Voeg de afbeelding in groot formaat toe aan het grote scherm
-        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' style='width: auto; height: 80%;'>`;
+        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' class='groot-scherm-img'>`;
+        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage' class='drag-box-img'>`;
 
-        // Voeg de afbeelding toe aan de dragBox
-        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage'>`;
         const img = document.getElementById('currentImage');
-
         img.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
         });
@@ -97,66 +88,54 @@ timeline.addEventListener('drop', (e) => {
     const newImage = e.dataTransfer.getData('text');
     const newDate = parseDate(newImage);
 
-    // Determine drop position
     const dropPosition = [...timeline.children].findIndex(el => el.getBoundingClientRect().left > e.clientX);
 
-    // Validation logic
     let isValid = true;
     if (dropPosition === 0 && timelineArray.length > 0) {
-        // Check leftmost placement
         isValid = newDate < parseDate(timelineArray[0]);
     } else if (dropPosition === -1 && timelineArray.length > 0) {
-        // Check rightmost placement
         isValid = newDate > parseDate(timelineArray[timelineArray.length - 1]);
     } else if (dropPosition > 0) {
-        // Check between two elements
         const leftDate = parseDate(timelineArray[dropPosition - 1]);
         const rightDate = parseDate(timelineArray[dropPosition]);
         isValid = newDate > leftDate && newDate < rightDate;
     }
 
     if (isValid) {
-        // Update timeline
         const imgElement = document.createElement('img');
         imgElement.src = `img/${newImage}`;
-        imgElement.style.margin = "30px";
+        imgElement.classList.add('timeline-img');
         timeline.insertBefore(imgElement, timeline.children[dropPosition] || null);
         timelineArray.splice(dropPosition, 0, newImage);
 
-        // Update feedback
-        if (currentImageIndex > 0 && !hasTried) {
+        if (currentImageIndex > 0) {
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "green";
         }
 
-        // Reset attempt count and load next image
         currentImageIndex++;
         attemptCount = 0;
         hasTried = false;
         loadImage();
     } else {
         attemptCount++;
-        
         hasTried = true;
         if (attemptCount >= maxAttempts) {
-            // Automatically place the image correctly
             const correctPosition = findCorrectPosition(newDate);
             const imgElement = document.createElement('img');
             imgElement.src = `img/${newImage}`;
-            imgElement.style.margin = "30px";
+            imgElement.classList.add('timeline-img');
             timeline.insertBefore(imgElement, timeline.children[correctPosition] || null);
             timelineArray.splice(correctPosition, 0, newImage);
 
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
-            alert(t("autoPlacement"));
-
-            // Reset attempt count and load next image
+            //showPopup(); eventueel om error te geven bij eerste fout
             currentImageIndex++;
             attemptCount = 0;
             hasTried = false;
             loadImage();
         } else {
-            alert(t("invalidPlacement"));
+            showPopup();
         }
     }
 });
@@ -171,10 +150,18 @@ function findCorrectPosition(newDate) {
     return timelineArray.length;
 }
 
-// Start het spel met reset
+function showPopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'block';
+}
+
+function hidePopup() {
+    const popup = document.getElementById('popup');
+    popup.style.display = 'none';
+}
+
 function startGame(language) {
-    currentLanguage = language
-    console.log(`Geselecteerde taal: ${language}`);
+    currentLanguage = language;
     document.getElementById('startScherm').style.display = 'none';
     document.getElementById('gameScherm').style.display = 'block';
     resetGame();
@@ -184,7 +171,6 @@ function startGame(language) {
     }, gameDelay);
 }
 
-// Reset alle logica
 function resetGame() {
     images = getRandomImages(10);
     timelineArray = [];
@@ -192,15 +178,11 @@ function resetGame() {
     attemptCount = 0;
     hasTried = false;
 
-    // Verwijder bestaande feedbackbollen
     feedbackDots.forEach(dot => {
         dot.style.backgroundColor = "#ccc";
     });
 
-    // Leeg de tijdlijn
     timeline.innerHTML = "";
-
-    // Laad de eerste afbeelding
     loadImage();
 }
 
@@ -209,13 +191,12 @@ function resetToStart() {
     document.getElementById('gameScherm').style.display = 'none';
 }
 
-// Eindig het spel
 function endGame() {
     const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "punt" : "punten";
-    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")} ${score}</p><p>${"maxScore"}</p>`;
+    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")} ${score}</p><p>${t("maxScore")} ${maxScore}</p>`;
     dragBox.innerHTML = "";
 
     setTimeout(() => {
@@ -224,9 +205,8 @@ function endGame() {
     }, endDelay);
 }
 
-// Automatisch tonen van startscherm bij laden van de pagina
 window.onload = async () => {
-    await loadTranslations(); // Wacht tot de teksten geladen zijn
+    await loadTranslations();
     document.getElementById('startScherm').style.display = 'block';
     document.getElementById('gameScherm').style.display = 'none';
 };
