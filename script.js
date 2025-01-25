@@ -40,6 +40,15 @@ function getRandomImages(count) {
     return shuffled.slice(0, count);
 }
 
+const preloadedImages = [];
+function preloadImages(imageArray) {
+    imageArray.forEach(image => {
+        const img = new Image();
+        img.src = `img/${image}`;
+        preloadedImages.push(img);
+    });
+}
+
 // Reset alle logica
 function resetGame() {
     images = getRandomImages(10);
@@ -205,6 +214,7 @@ function endGame() {
 
 // Automatisch tonen van startscherm bij laden van de pagina
 window.onload = () => {
+    preloadImages();
     document.getElementById('startScherm').style.display = 'block';
     document.getElementById('gameScherm').style.display = 'none';
 };
