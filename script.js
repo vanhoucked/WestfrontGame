@@ -205,8 +205,11 @@ function endGame() {
     const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
     maxScore = Math.max(maxScore, score);
 
-    const scoreText = score === 1 ? "punt" : "punten";
-    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")} ${score}</p><p>${t("maxScore")} ${maxScore}</p>`;
+    const scoreText = score === 1 ? point : points;
+    grootScherm.innerHTML = `
+    <h1>${t("gameOver")}</h1>
+    <p>${t("yourScore")} ${score} ${t(scoreText)}</p>
+    <p>${t("maxScore")} ${maxScore} ${t("points")}</p>`;
     dragBox.innerHTML = "";
 
     setTimeout(() => {
