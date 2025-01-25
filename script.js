@@ -1,17 +1,33 @@
-
-// Simuleer afbeeldingen uit de map
 const allImages = [
     "191408.jpg", "191409.jpg", "191609.jpg", "191612.jpg", "191704.jpg", "191705.jpg", "191706.jpg", "191811.jpg", "191907.jpg", "192002.jpg",
     "192011.jpg", "192012.jpg", "192812.jpg"
 ];
-
 let images = [];
 let timelineArray = [];
-let maxScore = 0; // Houdt de maximale score bij
+
+let maxScore = 0;
+const endDelay = 30000; // 30 seconden
+const gameDelay = 120000; // 2 minuten
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
 const timeline = document.getElementById('timeline');
+
+let translations = {};
+let currentLanguage = "nl";
+async function loadTranslations() {
+    const response = await fetch("translations.json");
+    translations = await response.json();
+}
+function t(key, placeholders = {}) {
+    let text = translations[currentLanguage][key] || key;
+
+    for (const [placeholder, value] of Object.entries(placeholders)) {
+        text = text.replace(`{${placeholder}}`, value);
+    }
+
+    return text;
+}
 
 // Feedbackbollen in de onderste section
 const feedbackContainer = document.createElement('div');
@@ -38,35 +54,7 @@ for (let i = 0; i < 9; i++) {
 function getRandomImages(count) {
     const shuffled = [...allImages].sort(() => 0.5 - Math.random());
     return shuffled.slice(0, count);
-}
-
-const preloadedImages = [];
-function preloadImages(imageArray) {
-    imageArray.forEach(image => {
-        const img = new Image();
-        img.src = `img/${image}`;
-        preloadedImages.push(img);
-    });
-}
-
-// Reset alle logica
-function resetGame() {
-    images = getRandomImages(10);
-    timelineArray = [];
-    currentImageIndex = 0;
-    attemptCount = 0;
-    hasTried = false;
-
-    // Verwijder bestaande feedbackbollen
-    feedbackDots.forEach(dot => {
-        dot.style.backgroundColor = "#ccc";
-    });
-
-    // Leeg de tijdlijn
-    timeline.innerHTML = "";
-
-    // Laad de eerste afbeelding
-    loadImage();
+    
 }
 
 // Load initial image in dragBox
@@ -74,7 +62,6 @@ let currentImageIndex = 0;
 let hasTried = false;
 const maxAttempts = 2;
 let attemptCount = 0;
-const endDelay = 20000; // Tijd in milliseconden (20 seconden)
 
 function loadImage() {
     if (currentImageIndex < images.length) {
@@ -91,6 +78,12 @@ function loadImage() {
     } else {
         endGame();
     }
+}
+
+function parseDate(imageName) {
+    const year = parseInt(imageName.slice(0, 4));
+    const month = parseInt(imageName.slice(4, 6));
+    return new Date(year, month - 1);
 }
 
 // Handle drop logic
@@ -142,9 +135,7 @@ timeline.addEventListener('drop', (e) => {
         loadImage();
     } else {
         attemptCount++;
-        if (currentImageIndex > 0 && !hasTried) {
-            feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
-        }
+        
         hasTried = true;
         if (attemptCount >= maxAttempts) {
             // Automatically place the image correctly
@@ -155,7 +146,9 @@ timeline.addEventListener('drop', (e) => {
             timeline.insertBefore(imgElement, timeline.children[correctPosition] || null);
             timelineArray.splice(correctPosition, 0, newImage);
 
-            alert('De afbeelding is automatisch op de juiste plaats gezet.');
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
+
+            alert(t("autoPlacement"));
 
             // Reset attempt count and load next image
             currentImageIndex++;
@@ -163,7 +156,7 @@ timeline.addEventListener('drop', (e) => {
             hasTried = false;
             loadImage();
         } else {
-            alert('Ongeldige plaatsing! Probeer opnieuw.');
+            alert(t("invalidPlacement"));
         }
     }
 });
@@ -178,18 +171,37 @@ function findCorrectPosition(newDate) {
     return timelineArray.length;
 }
 
-function parseDate(imageName) {
-    const year = parseInt(imageName.slice(0, 4));
-    const month = parseInt(imageName.slice(4, 6));
-    return new Date(year, month - 1);
-}
-
 // Start het spel met reset
 function startGame(language) {
+    currentLanguage = language
     console.log(`Geselecteerde taal: ${language}`);
     document.getElementById('startScherm').style.display = 'none';
     document.getElementById('gameScherm').style.display = 'block';
     resetGame();
+
+    setTimeout(() => {
+        endGame();
+    }, gameDelay);
+}
+
+// Reset alle logica
+function resetGame() {
+    images = getRandomImages(10);
+    timelineArray = [];
+    currentImageIndex = 0;
+    attemptCount = 0;
+    hasTried = false;
+
+    // Verwijder bestaande feedbackbollen
+    feedbackDots.forEach(dot => {
+        dot.style.backgroundColor = "#ccc";
+    });
+
+    // Leeg de tijdlijn
+    timeline.innerHTML = "";
+
+    // Laad de eerste afbeelding
+    loadImage();
 }
 
 function resetToStart() {
@@ -203,7 +215,7 @@ function endGame() {
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "punt" : "punten";
-    grootScherm.innerHTML = `<h1>Spel afgelopen!</h1><p>Je score: ${score} ${scoreText}</p><p>Maximale score: ${maxScore} punten</p>`;
+    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")}</p><p>${"maxScore"}</p>`;
     dragBox.innerHTML = "";
 
     setTimeout(() => {
@@ -213,8 +225,8 @@ function endGame() {
 }
 
 // Automatisch tonen van startscherm bij laden van de pagina
-window.onload = () => {
-    preloadImages();
+window.onload = async () => {
+    await loadTranslations(); // Wacht tot de teksten geladen zijn
     document.getElementById('startScherm').style.display = 'block';
     document.getElementById('gameScherm').style.display = 'none';
 };
