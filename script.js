@@ -7,6 +7,7 @@ const allImages = [
 
 let images = [];
 let timelineArray = [];
+let maxScore = 0; // Houdt de maximale score bij
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
@@ -64,6 +65,7 @@ let currentImageIndex = 0;
 let hasTried = false;
 const maxAttempts = 2;
 let attemptCount = 0;
+const endDelay = 20000; // Tijd in milliseconden (20 seconden)
 
 function loadImage() {
     if (currentImageIndex < images.length) {
@@ -78,7 +80,7 @@ function loadImage() {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
         });
     } else {
-        dragBox.innerHTML = "<p>Alle afbeeldingen staan op de tijdlijn!</p>";
+        endGame();
     }
 }
 
@@ -180,3 +182,24 @@ function startGame(language) {
     document.getElementById('gameScherm').style.display = 'block';
     resetGame();
 }
+
+// Eindig het spel
+function endGame() {
+    const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
+    maxScore = Math.max(maxScore, score);
+
+    const scoreText = score === 1 ? "punt" : "punten";
+    grootScherm.innerHTML = `<h1>Spel afgelopen!</h1><p>Je score: ${score} ${scoreText}</p><p>Maximale score: ${maxScore} punten</p>`;
+    dragBox.innerHTML = "";
+
+    setTimeout(() => {
+        document.getElementById('gameScherm').style.display = 'none';
+        document.getElementById('startScherm').style.display = 'block';
+    }, endDelay);
+}
+
+// Automatisch tonen van startscherm bij laden van de pagina
+window.onload = () => {
+    document.getElementById('startScherm').style.display = 'block';
+    document.getElementById('gameScherm').style.display = 'none';
+};
