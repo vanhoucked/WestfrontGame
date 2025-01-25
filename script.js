@@ -60,7 +60,7 @@ function getRandomImages(count) {
 // Load initial image in dragBox
 let currentImageIndex = 0;
 let hasTried = false;
-const maxAttempts = 2;
+const maxAttempts = 3;
 let attemptCount = 0;
 
 function loadImage() {
@@ -215,7 +215,7 @@ function endGame() {
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "punt" : "punten";
-    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")}</p><p>${"maxScore"}</p>`;
+    grootScherm.innerHTML = `<h1>${t("gameOver")}</h1><p>${t("yourScore")} ${score}</p><p>${"maxScore"}</p>`;
     dragBox.innerHTML = "";
 
     setTimeout(() => {

@@ -3,7 +3,7 @@
         "invalidPlacement": "Ongeldige plaatsing! Probeer opnieuw.",
         "autoPlacement": "De afbeelding is automatisch op de juiste plaats gezet.",
         "gameOver": "Spel afgelopen!",
-        "yourScore": "Je score: {score} {scoreText}",
+        "yourScore": "Je score: ",
         "maxScore": "Maximale score: {maxScore} punten",
         "point": "punt",
         "points": "punten"
