@@ -183,6 +183,11 @@ function startGame(language) {
     resetGame();
 }
 
+function resetToStart() {
+    document.getElementById('startScherm').style.display = 'block';
+    document.getElementById('gameScherm').style.display = 'none';
+}
+
 // Eindig het spel
 function endGame() {
     const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
