@@ -129,13 +129,13 @@ timeline.addEventListener('drop', (e) => {
 
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
-            //showPopup(); eventueel om error te geven bij eerste fout
+            showPopup(t("autoPlacement"));
             currentImageIndex++;
             attemptCount = 0;
             hasTried = false;
             loadImage();
         } else {
-            showPopup();
+            //showPopup(); eventueel om error te geven bij eerste fout
         }
     }
 });
@@ -150,14 +150,24 @@ function findCorrectPosition(newDate) {
     return timelineArray.length;
 }
 
-function showPopup() {
+function showPopup(message) {
     const popup = document.getElementById('popup');
+    const popupText = document.createElement('p');
+    popupText.innerHTML = message;
+    popup.appendChild(popupText);
+
+    const popupButton = document.getElementById('hidePopup');
+    popupButton.innerText = t("buttonText");
+
     popup.style.display = 'block';
 }
 
 function hidePopup() {
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
+
+    const popupText = document.getElementsByTagName("p");
+    popupText.remove();
 }
 
 function startGame(language) {

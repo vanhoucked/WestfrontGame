@@ -2,9 +2,10 @@
     "nl": {
         "invalidPlacement": "Ongeldige plaatsing! Probeer opnieuw.",
         "autoPlacement": "De afbeelding is automatisch op de juiste plaats gezet.",
+        "buttonText": "Verder doen",
         "gameOver": "Spel afgelopen!",
         "yourScore": "Je score: ",
-        "maxScore": "Maximale score: {maxScore} punten",
+        "maxScore": "Maximale score: ",
         "point": "punt",
         "points": "punten"
     },
@@ -12,9 +13,10 @@
     "fr": {
         "invalidPlacement": "Placement invalide ! Essayez à nouveau.",
         "autoPlacement": "L'image a été automatiquement placée correctement.",
+        "buttonText": "Verder doen maar dan int Frans",
         "gameOver": "Jeu terminé !",
-        "yourScore": "Votre score : {score} {scoreText}",
-        "maxScore": "Score maximum : {maxScore} points",
+        "yourScore": "Votre score: ",
+        "maxScore": "Score maximum: ",
         "point": "point",
         "points": "points"
     },
@@ -22,9 +24,10 @@
     "de": {
         "invalidPlacement": "Ungültige Platzierung! Versuchen Sie es erneut.",
         "autoPlacement": "Das Bild wurde automatisch korrekt platziert.",
+        "buttonText": "Verder doen maar dan int Duits",
         "gameOver": "Spiel vorbei!",
-        "yourScore": "Ihr Ergebnis: {score} {scoreText}",
-        "maxScore": "Maximale Punktzahl: {maxScore} Punkte",
+        "yourScore": "Ihr Ergebnis: ",
+        "maxScore": "Maximale Punktzahl: ",
         "point": "Punkt",
         "points": "Punkte"
     },
@@ -32,9 +35,10 @@
     "en": {
         "invalidPlacement": "Invalid placement! Try again.",
         "autoPlacement": "The image has been automatically placed correctly.",
+        "buttonText": "Verder doen maar dan int Engels",
         "gameOver": "Game over!",
-        "yourScore": "Your score: {score} {scoreText}",
-        "maxScore": "Maximum score: {maxScore} points",
+        "yourScore": "Your score: ",
+        "maxScore": "Maximum score: ",
         "point": "point",
         "points": "points"
     }
