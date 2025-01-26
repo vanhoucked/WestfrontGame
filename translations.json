@@ -1,7 +1,7 @@
 {
     "nl": {
-        "firstPicture": "Eerste afbeelding",
-        "otherPictures": "Andere afbeelding",
+        "firstPicture": "Eerste afbeelding uitleg wat te doen",
+        "otherPictures": "Andere afbeelding uitleg plaatsing tov andere foto's",
         "invalidPlacement": "Ongeldige plaatsing! Probeer opnieuw.",
         "autoPlacement": "De afbeelding is automatisch op de juiste plaats gezet.",
         "buttonText": "Verder doen",

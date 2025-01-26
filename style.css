@@ -98,3 +98,9 @@ body {
 #timeline img {
     margin: 30px;
 }
+
+#popup {
+    background-color: lightgoldenrodyellow;
+    position: absolute;
+    z-index: 100;
+}
