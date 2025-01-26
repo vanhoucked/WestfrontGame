@@ -22,6 +22,14 @@ body {
 .touchScreen {
     flex-direction: column;
 }
+
+#languageList {
+    display: flex;
+    width: 1000px;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
 .timeline {
     display: flex;
     justify-content: center;
@@ -33,6 +41,7 @@ body {
     height: 200px;
     border: 2px solid #888;
 }
+
 .timeline img {
     width: 155px;
     height: 155px;
