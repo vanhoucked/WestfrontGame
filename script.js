@@ -66,8 +66,23 @@ function loadImage() {
         img.addEventListener('dragstart', (e) => {
             e.dataTransfer.setData('text/plain', images[currentImageIndex]);
         });
+
+        updateExplanation(currentImageIndex + 1);
     } else {
         endGame();
+    }
+}
+
+function updateExplanation(pictureNumber) {
+    const explanationDiv = document.getElementById('explanation');
+    if (pictureNumber === 1) {
+        explanationDiv.innerHTML = `
+            <p>${t("firstPicture")}</p>
+        `;
+    } else {
+        explanationDiv.innerHTML = `
+            <p>${t("otherPictures")}</p>
+        `;
     }
 }
 

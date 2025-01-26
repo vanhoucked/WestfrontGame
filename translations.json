@@ -1,5 +1,7 @@
 {
     "nl": {
+        "firstPicture": "Eerste afbeelding",
+        "otherPictures": "Andere afbeelding",
         "invalidPlacement": "Ongeldige plaatsing! Probeer opnieuw.",
         "autoPlacement": "De afbeelding is automatisch op de juiste plaats gezet.",
         "buttonText": "Verder doen",
@@ -11,6 +13,8 @@
     },
     
     "fr": {
+        "firstPicture": "Eerste afbeelding FR",
+        "otherPictures": "Andere afbeelding FR",
         "invalidPlacement": "Placement invalide ! Essayez à nouveau.",
         "autoPlacement": "L'image a été automatiquement placée correctement.",
         "buttonText": "Verder doen maar dan int Frans",
@@ -22,6 +26,8 @@
     },
 
     "de": {
+        "firstPicture": "Eerste afbeelding DE",
+        "otherPictures": "Andere afbeelding DE",
         "invalidPlacement": "Ungültige Platzierung! Versuchen Sie es erneut.",
         "autoPlacement": "Das Bild wurde automatisch korrekt platziert.",
         "buttonText": "Verder doen maar dan int Duits",
@@ -33,6 +39,8 @@
     },
 
     "en": {
+        "firstPicture": "Eerste afbeelding EN",
+        "otherPictures": "Andere afbeelding EN",
         "invalidPlacement": "Invalid placement! Try again.",
         "autoPlacement": "The image has been automatically placed correctly.",
         "buttonText": "Verder doen maar dan int Engels",
