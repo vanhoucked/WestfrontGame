@@ -244,7 +244,7 @@ function endGame() {
     const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
     maxScore = Math.max(maxScore, score);
 
-    const scoreText = score === 1 ? point : points;
+    const scoreText = score === 1 ? "point" : "points";
     grootScherm.innerHTML = `
     <h1>${t("gameOver")}</h1>
     <p>${t("yourScore")} ${score} ${t(scoreText)}</p>
