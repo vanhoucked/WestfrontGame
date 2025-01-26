@@ -59,8 +59,8 @@ let attemptCount = 0;
 
 function loadImage() {
     if (currentImageIndex < images.length) {
-        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' class='groot-scherm-img'>`;
-        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage' class='drag-box-img'>`;
+        grootScherm.innerHTML = `<img src='img/${images[currentImageIndex]}' class='groot-scherm-img fade-in'>`;
+        dragBox.innerHTML = `<img src='img/${images[currentImageIndex]}' draggable='true' id='currentImage' class='drag-box-img fade-in'>`;
 
         const img = document.getElementById('currentImage');
         img.addEventListener('dragstart', (e) => {
@@ -187,12 +187,34 @@ function hidePopup() {
     popup.style.display = 'none';
 }
 
-function startGame(language) {
+function preloadImages(imagePaths) {
+    const preloadPromises = imagePaths.map((imagePath) => {
+        return new Promise((resolve, reject) => {
+            const img = new Image();
+            img.src = `img/${imagePath}`;
+            img.onload = resolve; // Resolve when the image is fully loaded
+            img.onerror = reject; // Reject if there’s an error loading the image
+        });
+    });
+    return Promise.all(preloadPromises);
+}
+
+async function startGame(language) {
     currentLanguage = language;
     document.getElementById('startScherm').style.display = 'none';
     document.getElementById('gameScherm').style.display = 'block';
+
     resetGame();
 
+    try {
+        // Preload images
+        await preloadImages(images);
+        console.log("All images preloaded successfully.");
+    } catch (error) {
+        console.error("Error preloading images:", error);
+    }
+
+    // Start the game timer
     setTimeout(() => {
         endGame();
     }, gameDelay);

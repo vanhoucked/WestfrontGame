@@ -38,6 +38,23 @@ body {
     height: 120px;
     margin: 0 10px;
 }
+
+/* Fade-in effect */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+/* Keyframes for fade-in */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 #dragBox {
     width: 500px;
     height: 500px;
