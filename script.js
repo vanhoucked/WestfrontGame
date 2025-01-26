@@ -9,6 +9,7 @@ let score = 0;
 let maxScore = 0;
 const endDelay = 30000; // 30 seconden
 let gameDelay = 120000; // 2 minuten
+let gameTimer; // Variable to store the timer ID
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
@@ -211,9 +212,14 @@ async function startGame(language) {
     } catch (error) {
         console.error("Error preloading images:", error);
     }
+}
 
-    // Start the game timer
-    setTimeout(() => {
+function startGameTimer() {
+    // Clear any existing timer to prevent overlapping
+    clearTimeout(gameTimer);
+
+    // Start a new timer
+    gameTimer = setTimeout(() => {
         endGame();
     }, gameDelay);
 }
@@ -241,7 +247,7 @@ function resetToStart() {
 
 function actionDetected() {
     gameDelay = 120000;
-    console.log("Game delay reset to:", gameDelay);
+    startGameTimer();
     hidePopup();
 }
 
