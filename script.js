@@ -5,6 +5,7 @@ const allImages = [
 let images = [];
 let timelineArray = [];
 
+let score = 0;
 let maxScore = 0;
 const endDelay = 30000; // 30 seconden
 const gameDelay = 120000; // 2 minuten
@@ -125,6 +126,7 @@ timeline.addEventListener('drop', (e) => {
 
         if (currentImageIndex > 0) {
             feedbackDots[currentImageIndex - 1].style.backgroundColor = "#96aa9f";
+            score++;
         }
 
         currentImageIndex++;
@@ -214,6 +216,7 @@ function resetGame() {
     timelineArray = [];
     currentImageIndex = 0;
     attemptCount = 0;
+    score = 0;
     hasTried = false;
 
     feedbackDots.forEach(dot => {
@@ -230,7 +233,6 @@ function resetToStart() {
 }
 
 function endGame() {
-    const score = feedbackDots.filter(dot => dot.style.backgroundColor === "#96aa9f").length;
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "point" : "points";
@@ -246,6 +248,9 @@ function endGame() {
     <p>${t("yourScore")} ${score} ${t(scoreText)}</p>
     <p>${t("maxScore")} ${maxScore} ${t("points")}</p>`;
     dragBoxDiv.style.display = "flex";
+
+    const bovenSection = document.getElementById("grootScherm");
+    bovenSection.innerHTML = `<img src="img/WestfrontLogo.png">`;
 
     setTimeout(() => {
         document.getElementById('gameScherm').style.display = 'none';
