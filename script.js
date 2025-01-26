@@ -39,11 +39,10 @@ document.getElementById('touchscreenScherm').appendChild(feedbackContainer);
 // Maak de feedbackbollen
 const feedbackDots = [];
 for (let i = 0; i < 9; i++) {
-    const star = document.createElement('div'); // of 'span', afhankelijk van je gebruik
-    star.classList.add('feedback-star');
-    star.innerHTML = '★'; // Unicode ster (kan ook vervangen worden door een icoon van een bibliotheek zoals FontAwesome)
-    feedbackContainer.appendChild(star);
-    feedbackDots.push(star);
+    const dot = document.createElement('div');
+    dot.classList.add('feedback-dot');
+    feedbackContainer.appendChild(dot);
+    feedbackDots.push(dot);
 }
 
 // Functie om 10 random afbeeldingen te selecteren
@@ -110,7 +109,7 @@ timeline.addEventListener('drop', (e) => {
         timelineArray.splice(dropPosition, 0, newImage);
 
         if (currentImageIndex > 0) {
-            feedbackDots[currentImageIndex - 1].style.color = "green";
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "green";
         }
 
         currentImageIndex++;
@@ -128,7 +127,7 @@ timeline.addEventListener('drop', (e) => {
             timeline.insertBefore(imgElement, timeline.children[correctPosition] || null);
             timelineArray.splice(correctPosition, 0, newImage);
 
-            feedbackDots[currentImageIndex - 1].style.color = "red";
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
             showPopup(t("autoPlacement"));
             currentImageIndex++;
