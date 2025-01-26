@@ -144,13 +144,11 @@ timeline.addEventListener('drop', (e) => {
 
             //feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
-            showPopup(t("autoPlacement"));
             currentImageIndex++;
             attemptCount = 0;
             hasTried = false;
             loadImage();
         } else {
-            showPopup(t("invalidPlacement"));
         }
     }
 });
@@ -163,20 +161,6 @@ function findCorrectPosition(newDate) {
         }
     }
     return timelineArray.length;
-}
-
-function showPopup(message) {
-    const popup = document.getElementById('popup');
-    
-    const popupText = document.createElement('p');
-    popupText.setAttribute("id", "popupText");
-    popupText.innerHTML = message;
-    popup.appendChild(popupText);
-
-    const popupButton = document.getElementById('hidePopup');
-    popupButton.innerText = t("buttonText");
-
-    popup.style.display = 'block';
 }
 
 function hidePopup() {
@@ -203,6 +187,11 @@ async function startGame(language) {
     currentLanguage = language;
     document.getElementById('startScherm').style.display = 'none';
     document.getElementById('gameScherm').style.display = 'block';
+
+    var touchScreenTopDiv = document.getElementsByClassName("touchScreenTop");
+    for (var i = 0; i < touchScreenTopDiv.length; i++){
+        touchScreenTopDiv[i].style.display = "flex";
+    }
 
     resetGame();
 
@@ -245,11 +234,18 @@ function endGame() {
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "point" : "points";
-    grootScherm.innerHTML = `
+    
+    var touchScreenTopDiv = document.getElementsByClassName("touchScreenTop");
+    for (var i = 0; i < touchScreenTopDiv.length; i++){
+        touchScreenTopDiv[i].style.display = "none";
+    }
+    
+    const dragBoxDiv = document.getElementById("dragBox");
+    dragBoxDiv.innerHTML = `
     <h1>${t("gameOver")}</h1>
     <p>${t("yourScore")} ${score} ${t(scoreText)}</p>
     <p>${t("maxScore")} ${maxScore} ${t("points")}</p>`;
-    dragBox.innerHTML = "";
+    dragBoxDiv.style.display = "flex";
 
     setTimeout(() => {
         document.getElementById('gameScherm').style.display = 'none';

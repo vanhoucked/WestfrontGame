@@ -1,6 +1,8 @@
-/*html {
-    overflow: hidden;
-}*/
+@import url("fonts.css");
+html {
+    /*overflow: hidden;*/
+    font-family: FayonGrandeProSemi;
+}
 body {
     margin: 0;
     display: flex;
@@ -8,7 +10,6 @@ body {
     align-items: center;
     justify-content: center;
     height: 100%;
-    font-family: Arial, sans-serif;
 }
 .grootScherm, .touchScreen {
     width: 1920px;
@@ -25,9 +26,32 @@ body {
 
 #languageList {
     display: flex;
-    width: 1000px;
+    width: 1500px;
     justify-content: space-around;
     list-style-type: none;
+    font-size: 40px;
+}
+
+#touchScreenTop {
+    display: grid; /* Enable grid layout */
+    grid-template-columns: 1fr 1fr 1fr; /* Divide into 3 equal columns */
+    width: 100%; /* Full width of the page */
+    height: 500px; /* Adjust height as needed */
+    gap: 10px; /* Optional: Space between sections */
+}
+
+#dragBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    grid-column-start: 2;
+}
+
+#dragBox img {
+    width: 350px;
+    height: 350px;
+    cursor: grab;
 }
 
 .timeline {
@@ -64,20 +88,6 @@ body {
     }
 }
 
-#dragBox {
-    width: 400px;
-    height: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-#dragBox img {
-    width: 350px;
-    height: 350px;
-    cursor: grab;
-}
-
 .feedback-container {
     position: absolute;
     bottom: 20px;
@@ -103,12 +113,6 @@ body {
     max-width: 100%;
     height: auto;
     cursor: grab;
-}
-
-#popup {
-    background-color: lightgoldenrodyellow;
-    position: absolute;
-    z-index: 100;
 }
 
 #home {
