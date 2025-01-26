@@ -8,7 +8,7 @@ let timelineArray = [];
 let score = 0;
 let maxScore = 0;
 const endDelay = 30000; // 30 seconden
-const gameDelay = 120000; // 2 minuten
+let gameDelay = 120000; // 2 minuten
 
 const dragBox = document.getElementById('dragBox');
 const grootScherm = document.getElementById('grootScherm');
@@ -96,10 +96,12 @@ function parseDate(imageName) {
 // Handle drop logic
 timeline.addEventListener('dragover', (e) => {
     e.preventDefault();
+    
 });
 
 timeline.addEventListener('drop', (e) => {
     e.preventDefault();
+    actionDetected();
 
     const newImage = e.dataTransfer.getData('text');
     const newDate = parseDate(newImage);
@@ -133,6 +135,7 @@ timeline.addEventListener('drop', (e) => {
         attemptCount = 0;
         hasTried = false;
         loadImage();
+
     } else {
         attemptCount++;
         hasTried = true;
@@ -146,11 +149,13 @@ timeline.addEventListener('drop', (e) => {
 
             //feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
+            showPopup("autoPlacement");
             currentImageIndex++;
             attemptCount = 0;
             hasTried = false;
             loadImage();
         } else {
+            showPopup("invalidPlacement");
         }
     }
 });
@@ -165,12 +170,14 @@ function findCorrectPosition(newDate) {
     return timelineArray.length;
 }
 
-function hidePopup() {
-    const popupTextOld = document.getElementById("popupText");
-    popupTextOld.remove();
+function showPopup(message) {
+    const popupDiv = document.getElementById("popup");
+    popupDiv.innerHTML = `<p>${t(message)}</p>`;
+}
 
-    const popup = document.getElementById('popup');
-    popup.style.display = 'none';
+function hidePopup() {
+    const popupTextOld = document.getElementById("popup");
+    popupTextOld.innerHTML = "";
 }
 
 function preloadImages(imagePaths) {
@@ -230,6 +237,12 @@ function resetGame() {
 function resetToStart() {
     document.getElementById('startScherm').style.display = 'block';
     document.getElementById('gameScherm').style.display = 'none';
+}
+
+function actionDetected() {
+    gameDelay = 120000;
+    console.log("Game delay reset to:", gameDelay);
+    hidePopup();
 }
 
 function endGame() {
