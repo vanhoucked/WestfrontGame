@@ -124,7 +124,7 @@ timeline.addEventListener('drop', (e) => {
         timelineArray.splice(dropPosition, 0, newImage);
 
         if (currentImageIndex > 0) {
-            feedbackDots[currentImageIndex - 1].style.backgroundColor = "green";
+            feedbackDots[currentImageIndex - 1].style.backgroundColor = "#96aa9f";
         }
 
         currentImageIndex++;
@@ -142,7 +142,7 @@ timeline.addEventListener('drop', (e) => {
             timeline.insertBefore(imgElement, timeline.children[correctPosition] || null);
             timelineArray.splice(correctPosition, 0, newImage);
 
-            feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
+            //feedbackDots[currentImageIndex - 1].style.backgroundColor = "red";
 
             showPopup(t("autoPlacement"));
             currentImageIndex++;
@@ -228,7 +228,7 @@ function resetGame() {
     hasTried = false;
 
     feedbackDots.forEach(dot => {
-        dot.style.backgroundColor = "#ccc";
+        dot.style.backgroundColor = "#bfc6be";
     });
 
     timeline.innerHTML = "";
@@ -241,7 +241,7 @@ function resetToStart() {
 }
 
 function endGame() {
-    const score = feedbackDots.filter(dot => dot.style.backgroundColor === "green").length;
+    const score = feedbackDots.filter(dot => dot.style.backgroundColor === "#96aa9f").length;
     maxScore = Math.max(maxScore, score);
 
     const scoreText = score === 1 ? "point" : "points";

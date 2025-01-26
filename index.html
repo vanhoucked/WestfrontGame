@@ -11,16 +11,15 @@
 <div id="startScherm">
 
     <section class="grootScherm" id="grootStartScherm">
-        <h1>Welkom bij de Webapplicatie Tijdlijn</h1>
-        <p>Selecteer een taal om te beginnen:</p>
+        <img src="img/WestfrontLogo.png" alt="">
     </section>
 
     <section class="touchScreen" id="touchscreenStartScherm">
         <ul>
-            <li onclick="startGame('nl')">Nederlands</li>
-            <li onclick="startGame('fr')">Français</li>
-            <li onclick="startGame('de')">Deutsch</li>
-            <li onclick="startGame('en')">English</li>
+            <li onclick="startGame('nl')">start het spel</li>
+            <li onclick="startGame('fr')">commencer le jeu</li>
+            <li onclick="startGame('de')">starte das Spiel</li>
+            <li onclick="startGame('en')">start the game</li>
         </ul>
     </section>
 
@@ -40,7 +39,7 @@
         <div id="popup" style="display:none;">
             <button id="hidePopup" onclick="hidePopup()">Hide</button>
         </div>
-        <img src="img/home.png" onclick="resetToStart()" alt="">
+        <img id="home" src="img/home.png" onclick="resetToStart()" alt="">
     </section>
 
 </div>
@@ -51,7 +50,7 @@
 
     </section>
     <section class="touchScreen" id="touchscreenStartScherm">
-        <img src="img/home.png" onclick="resetToStart()" alt="">
+        <img id="home" src="img/home.png" onclick="resetToStart()" alt="">
     </section>
 
 </div>
