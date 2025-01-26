@@ -38,14 +38,28 @@ body {
     width: 100%; /* Full width of the page */
     height: 500px; /* Adjust height as needed */
     gap: 10px; /* Optional: Space between sections */
+
+    font-size: 25px;
+}
+
+#touchScreenTop > div > p {
+    width: 50%;
+}
+
+#explanation {
+    justify-content: end;
 }
 
 #dragBox {
     display: flex;
     justify-content: center;
-    align-items: center;
+    /*align-items: center;*/
     margin-bottom: 20px;
     grid-column-start: 2;
+}
+
+#popup {
+
 }
 
 #dragBox img {

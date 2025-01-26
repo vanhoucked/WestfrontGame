@@ -1,13 +1,13 @@
 {
     "nl": {
-        "firstPicture": "Eerste afbeelding uitleg wat te doen",
-        "otherPictures": "Andere afbeelding uitleg plaatsing tov andere foto's",
+        "firstPicture": "Sleep de eerste foto op de tijdlijn. Daarna komt de volgende foto.",
+        "otherPictures": "Sleep deze foto op de juiste plaats op de tijdlijn: voor, tussen of achter de andere foto's.",
         "invalidPlacement": "Ongeldige plaatsing! Probeer opnieuw.",
         "autoPlacement": "De afbeelding is automatisch op de juiste plaats gezet.",
         "buttonText": "Verder doen",
         "gameOver": "Spel afgelopen!",
         "yourScore": "Je score: ",
-        "maxScore": "Maximale score: ",
+        "maxScore": "Highscore: ",
         "point": "punt",
         "points": "punten"
     },

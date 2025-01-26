@@ -256,10 +256,10 @@ function endGame() {
     }
     
     const dragBoxDiv = document.getElementById("dragBox");
-    dragBoxDiv.innerHTML = `
+    dragBoxDiv.innerHTML = `<div id="scoreBox">
     <h1>${t("gameOver")}</h1>
     <p>${t("yourScore")} ${score} ${t(scoreText)}</p>
-    <p>${t("maxScore")} ${maxScore} ${t("points")}</p>`;
+    <p>${t("maxScore")} ${maxScore} ${t("points")}</p></div>`;
     dragBoxDiv.style.display = "flex";
 
     const bovenSection = document.getElementById("grootScherm");
