@@ -135,7 +135,7 @@ timeline.addEventListener('drop', (e) => {
             hasTried = false;
             loadImage();
         } else {
-            //showPopup(); eventueel om error te geven bij eerste fout
+            showPopup(t("invalidPlacement"));
         }
     }
 });
@@ -152,7 +152,9 @@ function findCorrectPosition(newDate) {
 
 function showPopup(message) {
     const popup = document.getElementById('popup');
+    
     const popupText = document.createElement('p');
+    popupText.setAttribute("id", "popupText");
     popupText.innerHTML = message;
     popup.appendChild(popupText);
 
@@ -163,11 +165,11 @@ function showPopup(message) {
 }
 
 function hidePopup() {
+    const popupTextOld = document.getElementById("popupText");
+    popupTextOld.remove();
+
     const popup = document.getElementById('popup');
     popup.style.display = 'none';
-
-    const popupText = document.getElementsByTagName("p");
-    popupText.remove();
 }
 
 function startGame(language) {
