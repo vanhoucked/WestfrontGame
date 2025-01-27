@@ -172,8 +172,21 @@ function findCorrectPosition(newDate) {
 }
 
 function showPopup(message) {
+    pogingenOver = maxAttempts - attemptCount;
+
     const popupDiv = document.getElementById("popup");
-    popupDiv.innerHTML = `<p>${t(message)}</p>`;
+
+    if (message == "invalidPlacement") {
+        if (pogingenOver == 1) {
+            popupDiv.innerHTML = `<p>${t(message)} ${pogingenOver} ${t("try")} </p>`;
+        } if (pogingenOver > 1) {
+            popupDiv.innerHTML = `<p>${t(message)} ${pogingenOver} ${t("tries")} </p>`;
+        }
+    } else {
+        popupDiv.innerHTML = `<p>${t(message)}</p>`;
+    }
+
+    
 }
 
 function hidePopup() {

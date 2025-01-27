@@ -2,7 +2,9 @@
     "nl": {
         "firstPicture": "Sleep de eerste foto op de tijdlijn. Daarna komt de volgende foto.",
         "otherPictures": "Sleep deze foto op de juiste plaats op de tijdlijn: voor, tussen of achter de andere foto's.",
-        "invalidPlacement": "De foto staat niet op de juiste plaats, probeer opnieuw.",
+        "invalidPlacement": "De foto staat niet op de juiste plaats, probeer opnieuw. Je hebt nog",
+        "try": "poging over.",
+        "tries": "pogingen over.",
         "autoPlacement": "De foto is automatisch op de juiste plaats gezet.",
         "buttonText": "Verder spelen",
         "gameOver": "Spel afgelopen",
@@ -15,7 +17,9 @@
     "fr": {
         "firstPicture": "Faites glisser la première photo sur la chronologie. Ensuite, passez à la photo suivante.",
         "otherPictures": "Faites glisser cette photo à la bonne place sur la chronologie : avant, entre ou après les autres photos.",
-        "invalidPlacement": "La photo n'est pas au bon endroit, essayez encore.",
+        "invalidPlacement": "La photo n'est pas au bon endroit, essayez encore. Il vous reste",
+        "try": "tentative.",
+        "tries": "tentatives.",
         "autoPlacement": "La photo a été automatiquement placée au bon endroit.",
         "buttonText": "Continuer à jouer",
         "gameOver": "Fin du jeu",
@@ -28,7 +32,9 @@
     "de": {
         "firstPicture": "Ziehen Sie das erste Foto auf die Zeitleiste. Danach folgt das nächste Foto.",
         "otherPictures": "Ziehen Sie dieses Foto an die richtige Stelle auf der Zeitleiste: davor, dazwischen oder dahinter.",
-        "invalidPlacement": "Das Foto befindet sich nicht an der richtigen Stelle, versuchen Sie es erneut.",
+        "invalidPlacement": "Das Foto befindet sich nicht an der richtigen Stelle, versuchen Sie es erneut. Sie haben noch",
+        "try": "Versuch übrig.",
+        "tries": "Versuche übrig.",
         "autoPlacement": "Das Foto wurde automatisch an der richtigen Stelle platziert.",
         "buttonText": "Weiter spielen",
         "gameOver": "Spiel beendet",
@@ -41,7 +47,9 @@
     "en": {
         "firstPicture": "Drag the first picture onto the timeline. Then comes the next picture.",
         "otherPictures": "Drag this picture to the correct spot on the timeline: before, between, or after the other pictures.",
-        "invalidPlacement": "The picture is not in the correct place, try again.",
+        "invalidPlacement": "The picture is not in the correct place, try again. You have",
+        "try": "attempt left.",
+        "tries": "attempts left.",
         "autoPlacement": "The picture has been automatically placed in the correct spot.",
         "buttonText": "Continue playing",
         "gameOver": "Game over",
