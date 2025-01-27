@@ -1,6 +1,6 @@
 @import url("fonts.css");
 html {
-    /*overflow: hidden;*/
+    overflow: hidden;
     font-family: FayonGrandeProSemi;
 }
 body {
