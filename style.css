@@ -58,8 +58,8 @@ body {
     grid-column-start: 2;
 }
 
-#popup {
-
+#scoreBox {
+    text-align: center;
 }
 
 #dragBox img {

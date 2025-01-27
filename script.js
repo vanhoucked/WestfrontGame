@@ -232,6 +232,8 @@ function resetGame() {
     score = 0;
     hasTried = false;
 
+    hidePopup()
+
     feedbackDots.forEach(dot => {
         dot.style.backgroundColor = "#bfc6be";
     });
